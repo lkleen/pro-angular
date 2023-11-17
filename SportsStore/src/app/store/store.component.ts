@@ -8,6 +8,8 @@ import { ProductRepository } from "../model/product.repository";
 })
 export class StoreComponent {
   public selectedCategory: string | undefined;
+  public productsPerPage: number = 4;
+  public selectedPage: number = 1;
 
   constructor(private repo: ProductRepository) {
   }
@@ -17,7 +19,28 @@ export class StoreComponent {
   }
 
   get products(): Product[] {
-    return this.repo.getProducts(this.selectedCategory);
+    let productsPerPage: number = Number(this.productsPerPage);
+    let pageIndex = (this.selectedPage - 1) * productsPerPage;
+    let pageEnd = pageIndex + productsPerPage;
+    return this
+      .repo
+      .getProducts(this.selectedCategory)
+      .slice(pageIndex, pageEnd);
+  }
+
+  changePage(page: number) {
+    this.selectedPage = page;
+  }
+
+  changePageSize(size: number) {
+    this.productsPerPage = size;
+    this.changePage(1);
+  }
+
+  get pageNumbers(): number[] {
+    let products = this.repo.getProducts(this.selectedCategory);
+    return Array(Math.ceil(products.length / this.productsPerPage))
+      .fill(0).map((x, i) => i + 1);
   }
 
   get categories(): string[] {
