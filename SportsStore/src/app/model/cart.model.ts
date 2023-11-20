@@ -41,7 +41,7 @@ export class Cart {
     this.totalItems = 0;
     this.totalPrice = 0;
     for (let cartLine of this.products.values()) {
-      this.totalItems += cartLine.quantity;
+      this.totalItems += Number(cartLine.quantity);
       this.totalPrice += cartLine.quantity * cartLine.product.price;
     }
   }
