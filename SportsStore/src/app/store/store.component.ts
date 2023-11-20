@@ -37,10 +37,9 @@ export class StoreComponent {
     this.changePage(1);
   }
 
-  get pageNumbers(): number[] {
+  get pageCount(): number {
     let products = this.repo.getProducts(this.selectedCategory);
-    return Array(Math.ceil(products.length / this.productsPerPage))
-      .fill(0).map((x, i) => i + 1);
+    return Math.ceil(products.length / this.productsPerPage);
   }
 
   get categories(): string[] {
