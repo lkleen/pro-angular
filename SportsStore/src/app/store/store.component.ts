@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Product } from "../model/product.model";
 import { ProductRepository } from "../model/product.repository";
 import { Cart } from "../model/cart.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "store",
@@ -14,11 +15,13 @@ export class StoreComponent {
 
   constructor(
     private repo: ProductRepository,
-    private cart: Cart) {
+    private cart: Cart,
+    private router: Router) {
   }
 
   addProductToCart(product: Product) {
     this.cart.addLine(product, 1);
+    this.router.navigateByUrl("/cart");
   }
 
   changeCategory(category?: string) {
