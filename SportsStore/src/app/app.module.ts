@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { StoreModule } from "./store/store.module";
+import { StoreComponent } from "./store/store.component";
+import { CheckoutComponent } from "./store/checkout.component";
+import { CartDetailComponent } from "./store/cartDetail.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -10,7 +13,13 @@ import { StoreModule } from "./store/store.module";
   ],
   imports: [
     BrowserModule,
-    StoreModule
+    StoreModule,
+    RouterModule.forRoot([
+      {path: "store", component: StoreComponent},
+      {path: "checkout", component: CheckoutComponent},
+      {path: "cart", component: CartDetailComponent},
+      {path: "**", redirectTo: "/store"}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
