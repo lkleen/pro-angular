@@ -1,0 +1,18 @@
+<div class="float-end">
+  <small class="fs-6">
+    Your cart:
+    <span *ngIf="cart.totalItems > 0">
+      {{cart.totalItems}} item(s)
+      {{cart.totalPrice | currency:"USD":"symbol":"2.2-2"}}
+    </span>
+    <span *ngIf="cart.totalItems == 0">
+      (empty)
+    </span>
+  </small>
+  <button
+    class="btn btn-sm bg-dark text-white"
+    [disabled]="cart.totalItems == 0">
+    <i class="fa fa-shopping-cart"></i>
+  </button>
+
+</div>

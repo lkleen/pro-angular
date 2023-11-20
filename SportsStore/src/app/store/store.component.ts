@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Product } from "../model/product.model";
 import { ProductRepository } from "../model/product.repository";
+import { Cart } from "../model/cart.model";
 
 @Component({
   selector: "store",
@@ -11,7 +12,13 @@ export class StoreComponent {
   public productsPerPage: number = 4;
   public selectedPage: number = 1;
 
-  constructor(private repo: ProductRepository) {
+  constructor(
+    private repo: ProductRepository,
+    private cart: Cart) {
+  }
+
+  addProductToCart(product: Product) {
+    this.cart.addLine(product, 1);
   }
 
   changeCategory(category?: string) {
