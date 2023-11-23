@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Product } from "./product.model"
 import { RestDataSource } from "./rest.datasource";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class ProductRepository {
