@@ -13,6 +13,7 @@ export class Cart {
   public totalPrice: number = 0;
 
   addLine (product: Product, quantity: number) {
+
     let cartLine: CartLine = this.products.get(product.id) || new CartLine(product, 0);
     cartLine.quantity += quantity;
     this.products.set(product.id, cartLine);
