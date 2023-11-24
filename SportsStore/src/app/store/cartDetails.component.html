@@ -17,12 +17,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngIf="cart.products.size == 0">
+        <tr *ngIf="cart.lines.length == 0">
           <td colspan="4" class="text-center">
             Your cart is empty
           </td>
         </tr>
-        <tr *ngFor="let line of cart.products.values()">
+        <tr *ngFor="let line of cart.lines">
           <td>
             <input type="number" class="form-control-sm"
                    style="width:5em" [value]="line.quantity"
@@ -62,7 +62,7 @@ $any($event).target.value)" />
           Continue Shopping
         </button>
         <button class="btn btn-secondary m-1" routerLink="/checkout"
-                [disabled]="cart.products.size == 0">
+                [disabled]="cart.lines.length == 0">
           Checkout
         </button>
       </div>

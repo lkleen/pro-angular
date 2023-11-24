@@ -8,7 +8,8 @@ class CartLine {
 
 @Injectable()
 export class Cart {
-  public products: Map<number, CartLine> = new Map<number, CartLine>();
+  private products: Map<number, CartLine> = new Map<number, CartLine>();
+  public lines: CartLine[] = [];
   public totalItems: number = 0;
   public totalPrice: number = 0;
 
@@ -17,19 +18,19 @@ export class Cart {
     let cartLine: CartLine = this.products.get(product.id) || new CartLine(product, 0);
     cartLine.quantity += quantity;
     this.products.set(product.id, cartLine);
-    this.updateTotals ();
+    this.update ();
   }
 
   updateQuantity (product: Product, quantity: number) {
     let cartLine: CartLine = this.products.get(product.id) || new CartLine(product, 0);
     cartLine.quantity = quantity;
     this.products.set(product.id, cartLine);
-    this.updateTotals ();
+    this.update ();
   }
 
   removeLine (id: number) {
     this.products.delete(id);
-    this.updateTotals();
+    this.update ();
   }
 
   clear() {
@@ -38,12 +39,14 @@ export class Cart {
     this.totalItems = 0;
   }
 
-  private updateTotals () {
+  private update () {
     this.totalItems = 0;
     this.totalPrice = 0;
+    this.lines = [];
     for (let cartLine of this.products.values()) {
       this.totalItems += Number(cartLine.quantity);
       this.totalPrice += cartLine.quantity * cartLine.product.price;
+      this.lines.push(cartLine);
     }
   }
 }
