@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Order } from "./order.model";
-import {findIndex, Observable} from "rxjs";
+import { Observable } from "rxjs";
 import { RestDataSource } from "./rest.datasource";
 
 @Injectable()
@@ -11,7 +11,7 @@ export class OrderRepository {
   constructor(private dataSource: RestDataSource) {
   }
 
-  getOrders(): readonly Order[] {
+  getOrders(): Order[] {
     if (!this.loaded) {
       this.loadOrders();
     }
@@ -38,15 +38,13 @@ export class OrderRepository {
   }
 
   deleteOrder(id: number) {
-    this.dataSource.deleteOrder(id).subscribe(
-      deleted => {
-        let index = this.orders.findIndex(elem => {return elem.id == deleted.id;})
-        this.orders.splice(index, 1);
-      }
-    )
+    this.dataSource.deleteOrder(id).subscribe(order => {
+      let index = this.orders.findIndex(order => {return order.id == id;});
+      this.orders.splice(index, 1);
+    });
   }
 
-  saveOrder(order: Order): Observable<Order> {
+  saveOrder(order: Order) {
     this.loaded = false;
     return this.dataSource.saveOrder(order);
   }
